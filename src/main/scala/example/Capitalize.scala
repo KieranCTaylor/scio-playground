@@ -19,7 +19,7 @@ object Capitalize {
       .map(_.toUpperCase)
       .saveAsTextFile(output)
 
-    val result = sc.close().waitUntilFinish()
+    val result = sc.run().waitUntilFinish()
 
     println("Errythang capitalized")
   }
