@@ -1,7 +1,7 @@
 import sbt._
 import Keys._
 
-val scioVersion = "0.7.4"
+val scioVersion = "0.8.0-SNAPSHOT"
 val beamVersion = "2.11.0"
 val scalaMacrosVersion = "2.1.1"
 
@@ -33,7 +33,8 @@ lazy val root: Project = project
     publish / skip := true,
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
-      "com.spotify" %% "scio-test" % scioVersion % Test,
+      "com.spotify" %% "scio-elasticsearch7" % scioVersion,
+      "com.spotify" %% "scio-test" % "0.7.4" % Test,
       "org.apache.beam" % "beam-runners-direct-java" % beamVersion,
       "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion,
       "org.slf4j" % "slf4j-simple" % "1.7.25"
