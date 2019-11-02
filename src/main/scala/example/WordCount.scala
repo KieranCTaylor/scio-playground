@@ -2,20 +2,21 @@ package example
 
 import com.spotify.scio._
 
-/*
-sbt "runMain [PACKAGE].WordCount
-  --project=[PROJECT] --runner=DataflowRunner --zone=[ZONE]
-  --input=gs://dataflow-samples/shakespeare/kinglear.txt
-  --output=gs://[BUCKET]/[PATH]/wordcount"
-*/
-
+/**
+  * Sample code for running word count on text file in GCS
+  * sbt "runMain [PACKAGE].WordCount
+  * --project=[PROJECT] --runner=DataflowRunner --zone=[ZONE]
+  * --input=gs://dataflow-samples/shakespeare/kinglear.txt
+  * --output=gs://[BUCKET]/[PATH]/wordcount"
+  */
 object WordCount {
-  def main(cmdlineArgs: Array[String]): Unit = {
-    val (sc, args) = ContextAndArgs(cmdlineArgs)
 
-    val exampleData = "gs://dataflow-samples/shakespeare/kinglear.txt"
-    val input = args.getOrElse("input", exampleData)
-    val output = args("output")
+  def main(args: Array[String]): Unit = {
+    val (sc, cliArgs) = ContextAndArgs(args)
+
+    val exampleData = "gs://k-scio-dev/wordCount.txt"
+    val input = cliArgs.getOrElse("input", exampleData)
+    val output = cliArgs("output")
 
     sc.textFile(input)
       .map(_.trim)
@@ -24,6 +25,9 @@ object WordCount {
       .map(t => t._1 + ": " + t._2)
       .saveAsTextFile(output)
 
-    val result = sc.close().waitUntilFinish()
+    val result: ScioResult = sc.close().waitUntilFinish()
+
+    println("Finished")
   }
+
 }

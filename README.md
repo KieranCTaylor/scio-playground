@@ -1,8 +1,6 @@
 # scio-playground
 
-## Raison d'être:
-
-TODO: your project description
+Creating solutions based on Spotify's Scio scala api for apache beam
 
 ## Features:
 
